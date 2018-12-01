@@ -8,7 +8,7 @@
 <div class="container table-responsive">
     <br />
     <div style="text-align:right;">
-        <a class="btn btn-primary" href="https://github.com/nipun-usf" target="_blank" role="button">GitHub</a>
+        <a class="btn btn-primary" href="https://github.com/nipun-usf/FinalProject_IEXTrading_DIS_Fall18_Group17" target="_blank" role="button">GitHub</a>
         <button type="button" class="btn btn-primary .btn-lg" data-toggle="modal" data-target="#myModal">Stock Picking Strategy and Reflections</button>
     </div>
     <h1>Top 5 Stocks to Buy this week</h1>
@@ -17,7 +17,7 @@
         @using (Html.BeginForm("Index", "TopStocks"))
         {
             <label for="marketCap">Market Cap (in billions):</label>
-            <input type="text" name="cap" id="marketCap" maxlength="4" size="4" value="2" style="line-height: 27px; padding-left: 10px;"/>
+            <input type="text" name="cap" id="marketCap" maxlength="4" size="4" value="2" style="line-height: 27px; padding-left: 10px;" />
             <label for="marketCap" style="padding-left: 20px;">Sector:</label>
             <select id="ddSector" name="sector" class="form-control-static">
                 <option value="Technology">Technology</option>
@@ -28,7 +28,7 @@
                 <option value="Industrials">Industrials</option>
                 <option value="Materials">Materials</option>
             </select>
-            <input type="submit" class="btn btn-primary" style="margin-left: 22px;" value="Get Stocks" />
+            <input type="submit" class="btn btn-primary" style="margin-left: 22px;" onclick="return validateInput();" value="Get Stocks" />
         }
     </div>
     <br />
@@ -80,17 +80,17 @@
             </table>
 
             <div style="text-align:center;">
-                <button id="export-btn" class="btn btn-primary" style="text-align:center;" onclick="location.href='@Url.Action("SaveTopStocks", "TopStocks", new { ssector = TempData["sector"], scap = TempData["cap"] })'">Save Stocks</button>
+                <button id="export-btn" class="btn btn-primary" onclick="location.href='@Url.Action("SaveTopStocks", "TopStocks", new { ssector = TempData["sector"], scap = TempData["cap"] })'" style="text-align:center;">Save Stocks</button>
             </div>
-            
+
         </div>
         <div id="divChart" style="text-align: center; line-height:0; float:right; width:50%;" class="flex-item">
             <canvas id="myChart" height="300" width="500"></canvas>
         </div>
     </div>
-    
 
-    
+
+
 </div>
 <br />
 <div id="footer" style="float:right; font-size: 10px;">
@@ -154,7 +154,7 @@
                     </p>
                     <br />
                     <h4><b><u>Self Reflection</u></b></h4>
-                    <p>This assignment helped us in in learning -</p>
+                    <p>This project helped us in in learning -</p>
                     <ul>
                         <li>MVC Core and how data flows across Model, View and Controller architecture</li>
                         <li>JavaScript and chart.js</li>
@@ -168,10 +168,10 @@
                         <li>Hosting website on Azure cloud</li>
                     </ul>
                     <p>
-                        The <b>GitHub link</b> for the assignment code and files can be found
-                        <a href=" https://github.com/nipun-usf/2018_Fall_Assignment4_ActiveCloudSite " target="_blank"> <u>here</u></a>.
+                        The <b>GitHub link</b> for the project code and files can be found
+                        <a href=" https://github.com/nipun-usf/FinalProject_IEXTrading_DIS_Fall18_Group17 " target="_blank"> <u>here</u></a>.
                     </p>
-                    <h4><b><u>Assignment Contributers (Group 17):</u></b></h4>
+                    <h4><b><u>Project Contributers (Group 17):</u></b></h4>
                     <ol type="1">
                         <li>Ankit Singh</li>
                         <li>Harish Yadav</li>
@@ -196,7 +196,7 @@
     document.getElementById("ddSector").value = '@(TempData["sector"])';
     document.getElementById("marketCap").value = '@(TempData["cap"])';
     document.getElementById("btn0").click();
-    
+
 
     alertDbSave(@TempData["dbSuccessComp"]);
 
@@ -208,4 +208,20 @@
         }
     }
 
+function validateInput() {
+    var cap = document.getElementById("marketCap").value
+    var sectorSelect = document.getElementById("ddSector");
+    var selectedText = sectorSelect.options[sectorSelect.selectedIndex].text;
+
+    if ((cap > 30 && selectedText == "Technology") || (cap > 40 && selectedText == "Financial Services") || (cap > 200 && selectedText == "Health Care")
+        || (cap > 3 && selectedText == "Energy") || (cap > 25 && selectedText == "Real Estate") || (cap > 30 && selectedText == "Industrials")
+        || (cap > 5 && selectedText == "Materials")) {
+        alert("The combination if inputs could not find Top 5 stocks. Please try again with lower market cap!")
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 </script>
