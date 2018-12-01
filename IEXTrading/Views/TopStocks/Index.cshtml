@@ -213,6 +213,11 @@ function validateInput() {
     var sectorSelect = document.getElementById("ddSector");
     var selectedText = sectorSelect.options[sectorSelect.selectedIndex].text;
 
+    if (cap == 0) {
+        alert("Market cap cannot be 0. Please try again!")
+        return false;
+    }
+
     if ((cap > 30 && selectedText == "Technology") || (cap > 40 && selectedText == "Financial Services") || (cap > 200 && selectedText == "Health Care")
         || (cap > 3 && selectedText == "Energy") || (cap > 25 && selectedText == "Real Estate") || (cap > 30 && selectedText == "Industrials")
         || (cap > 5 && selectedText == "Materials")) {
